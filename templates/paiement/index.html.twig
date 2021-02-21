@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonnement{% endblock %}
+
+{% block body %}
+
+<style>
+
+.all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.newform {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+.newform2 {
+    width: 1010px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 5%;
+}
+
+h3 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.prix {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 5%;
+}
+
+.newform:hover {
+    background: white;
+    border: solid 1.6px black;
+}
+
+.newform2:hover {
+    background: white;
+    border: solid 3px #d8bb5d;
+}
+
+.table {
+    background: #f5f6f6;
+    margin-right: auto;
+    margin-left: auto;
+    color: #00000087 !important;
+    border-collapse: unset !important;
+}
+.fa-trash {
+    color: #00000087;
+    font-size: 18px;
+}
+.fa-minus-circle, .fa-plus-circle {
+  font-size: 15px;
+  color: #2277ff;
+}
+
+.table-info {
+    background: #2277ff !important;
+}
+.btn.btn-success {
+    font-size: 16px;
+    font-weight: bold;
+    background: #71ce73 !important;
+    box-shadow: 0px 3px 0px 0px rgba(102, 172, 100, 1);
+    border: none;
+    width: 200px;
+}
+.fa-shopping-cart, .fa-credit-card {
+  font-size: 20px;
+}
+</style>
+
+
+    <h2 class="font-weight-bold display-4 ">SOUSCRIRE
+		<span style="color: #2277ff">UN ABONNEMENT</span>
+	</h2>
+    <hr>
+
+<div class="all">
+{% for abonnement in abonnements | slice(0,3) %}
+
+    <div class="newform">
+        <a id="checkout-button" style="color: black !important; max-height: none !important; text-align: center;" href="{{ path('add_to_cart', { 'id' : abonnement.id} ) }}">
+            <h3>{{ abonnement.subtitle }} :</h3>
+            <div class="prix">
+                {{ abonnement.total }} €
+            </div>
+            <p>{{ abonnement.option1 }}</p>
+            <p>{{ abonnement.option2 }}</p>
+            <p>{{ abonnement.option3 }}</p>
+            <p>{{ abonnement.option4 }}</p>
+            <p>{{ abonnement.option5 }}</p>
+        </a>
+    </div>
+
+{% endfor %}
+
+{% for abonnement in abonnements | slice(3,1) %}
+
+    <div class="newform2">
+        <a id="checkout-button" style="color: black !important; max-height: none !important; text-align: center; display: flex; justify-content: center; align-items: center;" href="{{ path('add_to_cart', { 'id' : abonnement.id} ) }}">
+            <div class="info">
+                <h3 class="mr-4">{{ abonnement.subtitle }} :</h3>
+                <div class="prix mr-4">
+                    {{ abonnement.total }} €
+                </div>
+            </div>
+            <div class="opt">
+                <p>{{ abonnement.option1 }}</p>
+                <p>{{ abonnement.option2 }}</p>
+                <p>{{ abonnement.option3 }}</p>
+                <p>{{ abonnement.option4 }}</p>
+                <p>{{ abonnement.option5 }}</p>
+            </div>
+
+        </a>
+    </div>
+
+{% endfor %}
+</div>
+   
+
+<!-- Panier -->
+
+    	<h2 class="font-weight-bold display-4 mt-5 ">Mon
+		<span style="color: #2277ff">Panier</span>
+	</h2>
+    <hr>
+
+    {% if cart|length > 0 %}
+
+        <table class="table table-hover mt-5">
+            <thead class="">
+            <tr>
+                <th scope="col">Abonnement</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+          
+            <tbody>
+            {% set total = null %}
+            {% for product in cart %}
+                <tr>
+                    <th scope="row">{{ product.product.subtitle }}</th>
+                    <td>
+                    <a href="{{ path('decrease_to_cart', { 'id' : product.product.id} ) }}"><i class="fas fa-minus-circle"></i></a>
+                    x {{ product.quantity }}
+                    <a href="{{ path('add_to_cart', { 'id' : product.product.id} ) }}"> <i class="fas fa-plus-circle"></i></a>
+                    </td>
+                    <td>{{ product.product.total }}€</td>
+                    <td>{{ product.product.total * product.quantity }}€</td>
+                    <td><a href="{{ path('delete_to_cart', { 'id' : product.product.id}) }}"><i class="fas fa-trash"></i></a></td>
+                </tr>
+            {% set total = total + ( product.product.total * product.quantity) %}
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+        <div class="text-right">
+            <b>Nombre de produits : {{ cart|length }}</b> <br>
+            <b>Prix total : {{ total }}€</b>
+        </div>
+
+        <a href="{{ path('order_recap') }}"><button class="btn btn-success mx-auto"><i class="far fa-credit-card"></i>Passer commande</button></a>
+
+    {% else %}
+        <p class="mt-5"><b>Votre panier est vide.</b></p>
+    {% endif %}
+
+{% endblock %}

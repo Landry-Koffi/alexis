@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos{% endblock %}
+{% block carousel %} {% endblock %}
+{% block body %}
+
+<style>
+.dec {
+    background: #2277ff;
+    color: white;
+    font-weight: bold;
+    border-color: #2277ff;
+}
+.form-control {
+    background: #f5f6f6 !important;
+}
+h5 {
+    font-size: 13px;
+}
+</style>
+{# 
+	<h2 class="font-weight-bold display-4 ">LA
+		<span style="color: #2277ff">CVTHÈQUE</span>
+	</h2>
+
+<hr> #}
+
+ 
+
+    <!-- FILTRES -->
+    <form class="filtres"  action="{{ path('cvtheques') }}" method="POST" id="search">
+    <div class="fil">
+        <button class="btn btn-primary" style="height: 50px;" type="submit">DOMAINE</button>
+        <input class="form-control" style="height: 50px;" placeholder="Rechercher" name="search" type="search">
+    </div>
+
+    <div class="fil mr-0">
+        <button class="btn btn-primary" style="height: 50px;" type="submit">LIEU</button>
+        <input class="form-control" style="height: 50px;" placeholder="Rechercher" type="search" name="search2">
+    </div>
+
+    <div class="fil2">
+        <button type="submit" class="btn btn-primary" style="height: 50px; width: 50px;"><i style="font-size: 20px" class="fas fa-search"></i></button>
+    </div>
+
+    </form>
+
+
+       <!-- FILTRES AVANCES -->
+
+    {{ form_start(form, {attr: {class: 'filter'}}) }}
+
+        <div class="filtrecol" style="max-width: 180px !important">
+            <div class="row">
+            {# <h5 class="elig mt-4">EXPERIENCE</h5> #}
+                <div class="col-md-6">
+                {{ form_row(form.min) }}
+                </div>
+                <div class="col-md-6">
+                {{ form_row(form.max) }}
+                </div>
+            </div>
+            <div id="price-slider" data-min="{{ min }}" data-max="{{ max }}" style=""></div>
+        </div>
+        
+        <div class="filtrecol">
+        <h5 class="elig mt-4">DISPONIBLE</h5>
+        {{ form_row(form.disponible) }}
+        </div>
+
+        <div class="filtrecol mt-4">
+        {{ form_row(form.contrat) }}
+        </div>
+
+        <div style="display: none !important;">
+        {{ form_row(form.eligible) }}
+        {{ form_row(form.date) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="height: 30px; width: 30px;"><i style="font-size: 20px" class="fas fa-search"></i></button>
+
+    {{ form_end(form) }}
+
+
+{% for cvtheque in cvtheques %}
+        <!-- CARDS -->
+
+        <div class="card mb-5" style="max-width: 1200px;">
+            <div class="row">
+                <div class="">
+                <a href="{{ path('cvtheque', { 'id' : cvtheque.id}) }}"><img class="navimg" src="/uploads/{{ cvtheque.image }}" alt="..."></a>
+                </div>
+                <div class="card-body">
+                    <div class="card1">
+                        <a href="{{ path('cvtheque', { 'id' : cvtheque.id}) }}"><h5 style="color: black; text-transform: uppercase;" class="card-title">{{ cvtheque.nom }} {{ cvtheque.prenom }}</h5></a>
+                        <p class="card-text" style="text-transform: uppercase;">{{ cvtheque.category }}</p>
+                        <p class="card-text"><small class="text-muted">{{ cvtheque.lieu }}</small></p>
+                    </div>
+
+                    <div class="card1">
+                        <h5 class="card-title">
+                        <a href="{{ path('cvtheque_like', {'id': cvtheque.id}) }}" class="btn btn-link js-like">
+                        {% if app.user and cvtheque.isLikeByUser(app.user) %}
+                            <i class="fas fa-heart"></i>
+                        {% else %}
+                            <i class="far fa-heart"></i>
+                        {% endif %}
+                        </a>
+                        </h5>
+                        <p class="card-text" style="color: #2277ff;">{% if cvtheque.disponible == 1 %}DISPONIBLE{% endif %}</p>
+                        <p class="card-text"><small class="text-muted">
+                        <a href="{{ path('cvtheque', { 'id' : cvtheque.id}) }}"><button class="dec">DÉCOUVRIR</button></a>
+                        </small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /END -->
+
+{% endfor %}
+
+    <!-- Pagination -->
+    <div class="" style="display: flex; justify-content: center;">
+        {{ knp_pagination_render(cvtheques) }}
+    </div>
+
+{% if app.user and app.user.cvonline != 1 and app.user.image != '' and app.user.cv != '' %}
+<a href="{{ path('cvtheque_new') }}" class="color: black !important;"><button class="dec">Ajouter son cv</button></a>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacter{% endblock %}
+
+{% block body %}
+
+<style>
+.btn.btn-primary {
+    height: 60px;
+    width: 150px;
+}
+
+.btn.btn-success, .btn.btn.btn-secondary {
+    height: 60px;
+    width: 150px;
+}
+</style>
+
+
+    <h2 class="font-weight-bold display-4 ">NOUVEAU
+		<span style="color: #2277ff">MESSAGE</span>
+	</h2>
+    <hr>
+
+    <div class="newform">
+        {{ include('message/_form.html.twig') }}
+    </div>
+
+    <a href="{{ path('cvtheques') }}"><button class="btn btn-info mt-3">Retour</button></a>
+{% endblock %}
+

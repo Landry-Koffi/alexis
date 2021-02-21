@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block body %}
+
+<style>
+.all {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.btn.btn-primary {
+    height: 40px;
+    width: 120px;
+}
+.form-check-label {
+	font-size: 12px;
+	margin-bottom: 3%;
+}
+.form-control2 {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: .9375rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #7b8a8b;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.newform {
+	width: 400px;
+	height: 800px;
+	margin-bottom: 5%;
+	border: none;
+}
+.sub {
+	display: flex;
+	justify-content: center;
+}
+.h5, h5 {
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.h6, h6 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+</style>
+
+		<h2 class="font-weight-bold display-4 ">DEVENIR
+		<span style="color: #2277ff">MEMBRE</span>
+	</h2>
+	<hr>
+
+	{% if notification %}
+		<div class="alert alert-info">{{ notification }}</div>
+	{% endif %}
+
+<div class="all">
+
+	<div class="newform">
+		{{ form_start(form) }}
+
+		<h5 class="mb-3">Je cherche une formation/ un emploi</h5>
+		<h6 class="mb-5">Inscription</h6>
+
+		{{ form_row(form.lastname) }}
+		{{ form_row(form.firstname) }}
+		{{ form_row(form.naissance) }}
+		{{ form_row(form.email) }}
+		{{ form_row(form.password) }}
+
+		<div class="form-group">
+			{# <label for="exampleInputEmail1">Conditions générale d'utilisation</label> #}
+			<p class=""><a style="color: #2277ff !important; text-decoration: underline;" href="/contrats/CGU.pdf" download>Conditions générales d'utilisation.PDF</a></p>
+
+		</div>
+
+		<div class="form-check">
+			<input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+			<small id="emailHelp" class="form-text text-muted mb-3">Jatteste avoir pris connaissance des conditions mentionnées ci-dessus.</small>
+		</div>
+
+		<div class="sub">{{ form_row(form.submit) }}</div>
+
+    	{{ form_end(form) }}
+	</div>
+
+
+
+	<div class="newform">
+		{{ form_start(form2) }}
+
+		<h5 class="mb-3">Je dépose une formation/ un emploi</h5>
+		<h6 class="mb-5">Inscription</h6>
+
+		{{ form_row(form2.lastname) }}
+		{{ form_row(form2.siret) }}
+		{{ form_row(form2.email) }}
+		{{ form_row(form2.compte) }}
+		{{ form_row(form2.password) }}
+
+		<div class="form-group">
+			{# <label for="exampleInputEmail1">Conditions générale d'utilisation</label> #}
+			<p class=""><a style="color: #2277ff !important; text-decoration: underline;" href="/contrats/CGU.pdf" download>Conditions générales d'utilisation.PDF</a></p>
+
+		</div>
+
+		<div class="form-check">
+			<input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+			<small id="emailHelp" class="form-text text-muted mb-3">Jatteste avoir pris connaissance des conditions mentionnées ci-dessus.</small>
+		</div>
+
+		<div class="sub">{{ form_row(form2.submit) }}</div>
+
+    	{{ form_end(form2) }}
+	</div>
+
+</div>
+
+{% endblock %}

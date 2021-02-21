@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message{% endblock %}
+
+{% block body %}
+<style>
+.btn.btn-primary {
+    height: 40px;
+    width: 120px;
+}
+
+.btn.btn-success, .btn.btn.btn-secondary {
+    height: 40px;
+    width: 120px;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 2%;
+}
+
+.date {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #000000a1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2%;
+}
+
+.fromid {
+    display: flex;
+    flex-direction: column;
+}
+
+.fa-clock {
+    color: #000000a1;
+    font-size: 14px;
+}
+
+.fa-file-pdf {
+    color: black;
+    font-size: 20px;
+    margin-right: 1%;
+}
+
+.fa-file-pdf:hover {
+    transform: scale(1.1);
+}
+
+h6 {
+    font-size: 12px;
+    color: #000000a1;
+    font-weight: 600;
+}
+
+.bbtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.changepassword2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: black !important;
+}
+
+.infocv {
+    font-size: 11px;
+}
+
+</style>
+
+    	<h2 class="font-weight-bold display-4 ">MON
+		<span style="color: #2277ff">MESSAGE</span>
+	</h2>
+    <hr>
+
+
+    {# {% for message in messages %} #}
+
+
+        <div class="newform">
+        
+            <div class="headermess">
+                <img class="mr-3" src="/uploads/{{ message.fromId.image }}" alt="" width="65px"> 
+                <div class="fromid">
+                    <strong>{{message.fromId.firstname}} {{message.fromId.lastname}}</strong>
+                    <h6>{{message.fromId}}</h6>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="bodymess">
+
+                <h5>{{message.subject}}</h5>
+
+                <div class="date">
+                    <i class="far fa-clock mr-2"></i> le : {{ message.createdAt ? message.createdAt|date('d-m-Y, à H:i:s') : '' }}
+                </div>
+                
+                <p class="mt-4">{{message.content}}</p>
+                
+                {% if message.fichier %}
+                <a class="changepassword2 mt-5" href="/uploads/{{ message.fichier }}" download><i class="fas fa-file-pdf"></i>Pièce jointe</a>
+                {% endif %}
+
+                {% if message.cv != '' %}
+                <a class="changepassword2 mt-2" href="/uploads/{{ message.cv }}" download><i class="fas fa-file-pdf"></i>Télécharger le cv</a>
+                {% else %} 
+                    <p class="infocv mt-2">Information : l'utilisateur n'a pas déposé son cv</p>
+                {% endif %}
+
+            </div>
+
+        
+        </div>
+
+        <hr>
+
+    {# {% endfor %} #}
+
+        <div class="newform mt-1">
+        {{ include('message/_form.html.twig') }}
+    </div>
+
+<div class="bbtn">
+    <a href="{{ path('message_index') }}"><button class="btn btn-primary mr-2">Réception</button></a>
+    {{ include('message/_delete_form.html.twig') }}
+</div>
+
+{% endblock %}

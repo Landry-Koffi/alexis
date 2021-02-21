@@ -1,0 +1,220 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+{% block carousel %}{% endblock %}
+{% block filtres %}{% endblock %}
+{% block body %}
+
+	<style>
+		/* Cards */
+		.allcard {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.card {
+			box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+			border-radius: 15px;
+			width: 220px;
+			overflow: hidden;
+			margin-right: 2%;
+			margin-bottom: 2%;
+		}
+		.card:hover .drop-down-window {
+			transform: translateX(0);
+			opacity: 1;
+		}
+		.card:hover .img {
+			filter: blur(1.5px);
+			transform: scale(1);
+		}
+		.card .img-cont {
+			overflow: hidden;
+			position: relative;
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+		}
+		.card .img-cont span {
+			position: absolute;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			z-index: 3;
+			background-color: rgba(0, 0, 0, 0.2);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: white;
+			font-weight: light;
+			font-size: 30px;
+			opacity: 0;
+			transform: translatey(-100%);
+			transition: transform 0.3s ease-out, opacity 0.5s ease-out;
+			font-family: sans-serif;
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+		}
+		.card .img-cont img {
+			z-index: 0;
+			width: 100%;
+			transform: scale(1.2);
+			transition: all 0.3s;
+		}
+		.card .content-cont {
+			padding: 20px;
+		}
+		.card .content-cont span {
+			display: block;
+		}
+		.card .content-cont .card-header {
+			text-transform: uppercase;
+			font-weight: bold;
+			padding-bottom: 10px;
+			font-size: 15px;
+		}
+		.card .content-cont .card-body {
+			font-family: sans-serif;
+		}
+
+		.text-center {
+			margin-bottom: 3% !important;
+		}
+		h5 {
+			font-size: 1em !important;
+		}
+		h2 {
+			font-size: 1em !important;
+		}
+
+		.form-control {
+			background: #f5f6f6 !important;
+		}
+
+
+ @media (max-width: 800px){
+	 .card {
+		 width: 150px;
+	 }
+	 .card-header {
+		 font-size: 10px !important;
+	 }
+	  h2.text-right, h2 {
+	 text-align: center !important;
+ }
+ }
+
+	</style>
+
+	    <!-- FILTRES -->
+    <form class="filtres" action="{{ path('emplois') }}" method="POST" id="search">
+    <div class="fil">
+        <button class="btn btn-primary" style="height: 50px;" type="submit">EMPLOIS</button>
+        <input class="form-control" style="height: 50px;" placeholder="Rechercher" name="search" type="search">
+    </div>
+
+    <div class="fil mr-0">
+        <button class="btn btn-primary" style="height: 50px;" type="submit">LIEU</button>
+        <input class="form-control" style="height: 50px;" placeholder="Rechercher" type="search" name="search2">
+    </div>
+
+    <div class="fil2">
+        <button type="submit" class="btn btn-primary" style="height: 50px; width: 50px;"><i style="font-size: 20px" class="fas fa-search"></i></button>
+    </div>
+
+    </form>
+
+	<!-- Services -->
+
+	{# <div class="container my-1">
+    <section>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="px-3 my-5">
+                    <div class="circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4"
+                         style="width: 60px;height: 60px; background-color: #2277ff">
+						<i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="px-3 text-center pb-3">
+                        <h5 class="text-uppercase" style="font-weight: 600">Formations</h5>
+                        <p class="font-weight-light my-3">Lorem ipsum dolor sit consectetur adipisicing elit. Alias amet
+                            deleniti.</p>
+                    </div>
+                </div>
+            </div>
+          <div class="col-md-4">
+                <div class="px-3 my-5">
+                    <div class="circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4"
+                         style="width: 60px;height: 60px; background-color: #2277ff">
+						<i class="fas fa-school"></i>
+                    </div>
+                    <div class="px-3 text-center pb-3">
+                        <h5 class="text-uppercase" style="font-weight: 600">Emplois</h5>
+                        <p class="font-weight-light my-3">Lorem ipsum dolor sit consectetur adipisicing elit. Alias amet
+                            deleniti.</p>
+                    </div>
+                </div>
+            </div>
+          <div class="col-md-4">
+                <div class="px-3 my-5">
+                    <div class="circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4"
+                         style="width: 60px;height: 60px; background-color: #2277ff">
+						<i class="fab fa-leanpub"></i>
+                    </div>
+                    <div class="px-3 text-center pb-3">
+                        <h5 class="text-uppercase" style="font-weight: 600">CVThèque</h5>
+                        <p class="font-weight-light my-3">Lorem ipsum dolor sit consectetur adipisicing elit. Alias amet
+                            deleniti.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div> #}
+
+		<h2 class="font-weight-bold display-4 text-center ">ACTUS
+			<span style="color: #2277ff">FORMATIONS</span>
+		</h2>
+
+	<hr>
+
+	<!-- Formations -->
+
+	<div class="allcard mt-5">
+		{% for formation in formations | slice(0,4) %}
+			<div class='card'>
+				<div class='img-cont'>
+					<span class='drop-down-window'>{{ (formation.prix)|number_format(2, ',','.') }}
+						€</span>
+					<img class='img' src="/uploads/{{ formation.image }}">
+				</div>
+				<div class='content-cont'>
+					<a style="color: black !important;" href="{{ path('formation', { 'id' : formation.id}) }}"><span class='card-header'>{{ formation.nom}}</span></a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+			<h2 class="font-weight-bold display-4 text-center mt-5">ACTUS
+			<span style="color: #2277ff">EMPLOIS</span>
+		</h2>
+	<hr>
+	<!-- Emplois -->
+
+	<div class="allcard mt-5">
+		{% for emploi in emplois | slice(0,4) %}
+			<div class='card'>
+				<div class='img-cont'>
+					<span class='drop-down-window'>{{ (emploi.salaire)|number_format(2, ',','.') }}
+						€</span>
+					<img class='img' src="/uploads/{{ emploi.image }}">
+				</div>
+				<div class='content-cont'>
+					<a style="color: black !important;" href="{{ path('emploi', { 'id' : emploi.id}) }}"><span class='card-header'>{{ emploi.nom}}</span></a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+
+{% endblock %}

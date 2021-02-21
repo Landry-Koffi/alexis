@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postuler{% endblock %}
+
+{% block body %}
+
+<style>
+.btn.btn-primary {
+    height: 60px;
+    width: 150px;
+}
+
+.btn.btn-success, .btn.btn.btn-secondary {
+    height: 60px;
+    width: 150px;
+}
+</style>
+
+
+    	<h2 class="font-weight-bold display-4 ">JE
+		<span style="color: #2277ff">POSTULE</span>
+	</h2>
+    <hr>
+
+    <div class="newform">
+        {{ include('message/_form.html.twig') }}
+    </div>
+
+    <a href="{{ path('message_index') }}"><button class="btn btn-info mt-3">Retour à l'accueil</button></a>
+{% endblock %}
+

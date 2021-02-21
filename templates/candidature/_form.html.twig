@@ -1,0 +1,11 @@
+<style>
+.btn.btn-success {
+    height: 60px;
+    width: 150px;
+}
+</style>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+{{ form_end(form) }}

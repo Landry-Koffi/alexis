@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+
+<style>
+.table {
+    background: white;
+    border: solid 2px #00000029;
+}
+</style>
+    	<h2 class="font-weight-bold display-4 ">MES
+		<span style="color: #2277ff">COMMANDES</span>
+	</h2>
+    <hr>
+    {% if orders|length == 0 %}
+        <hr>
+        <p class="text-center">
+            Vous n'avez pas encore passé de commande sur Jobissim.
+        </p>
+    {% else %}
+        <table class="table mt-4">
+            <thead>
+            <tr>
+                <th scope="col">Référence</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Passée le</th>
+                <th scope="col">Produit(s)</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td><span class="badge badge-secondary">{{ order.reference }}</span></td>
+                    <td>
+                        {% if order.isPaid == 1 %}
+                            Paiement accepté
+                            {% else %}
+                                Paiement refusé
+                        {% endif %}
+                    </td>
+                    <td>{{ order.createdAt|date('d/m/Y') }}</td>
+                    <td>{{ order.oderDetails|length }}</td>
+                    <td>{{ order.total / 100 }}</td>
+                    <td class="text-right"><a style="color: black !important;" href="{{ path('account_order_show', { 'reference' : order.reference }) }}">Voir ma commande</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    <a class="changepassword" href="{{ path('account') }}">Retour</a>
+
+    {% endif %}
+{% endblock %}

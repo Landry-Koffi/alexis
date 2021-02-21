@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Emplois{% endblock %}
+{% block carousel %} {% endblock %}
+{% block body %}
+
+{% for cvtheque in cvtheques %}
+
+<style>
+.dec {
+    background: #2277ff;
+    color: white;
+    font-weight: bold;
+    border-color: #2277ff;
+}
+</style>
+
+        <!-- CARDS -->
+
+        <div class="card mb-5" style="max-width: 1200px;">
+            <div class="row">
+                <div class="">
+                <a href="{{ path('cvtheque', { 'id' : cvtheque.id}) }}"><img class="navimg" src="/uploads/{{ cvtheque.image }}" alt="..."></a>
+                </div>
+                <div class="card-body">
+                    <div class="card1">
+                        <a href="#"><h5 style="color: black; text-transform: uppercase;" class="card-title">{{ cvtheque.nom }} {{ cvtheque.prenom }}</h5></a>
+                        <p class="card-text" style="text-transform: uppercase;">{{ cvtheque.category }}</p>
+                        <p class="card-text"><small class="text-muted">{{ cvtheque.lieu }}</small></p>
+                    </div>
+
+                    <div class="card1">
+                            <h5 class="card-title">
+                            <a href="{{ path('cvtheque_like', {'id': cvtheque.id}) }}" class="btn btn-link js-like">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                            </h5>
+                        <p class="card-text" style="color: #2277ff;">{% if cvtheque.disponible == 1 %}DISPONIBLE{% endif %}</p>
+                        <a href="{{ path('cvtheque', { 'id' : cvtheque.id}) }}"><button class="dec">DÉCOUVRIR</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /END -->
+{% else %}
+		<h2 class="font-weight-bold display-4 text-center ">Pas
+		<span style="color: #2277ff">de favoris</span>
+	</h2>
+<p class="text-center"><a class="changepassword" href="{{ path('account') }}">Retour au profil</a></p>
+{% endfor %}
+
+{% endblock %}
+

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation{% endblock %}
+
+{% block body %}
+
+<style>
+.btn.btn-primary {
+    height: 60px;
+    width: 150px;
+}
+
+.btn.btn-success, .btn.btn.btn-secondary {
+    height: 60px;
+    width: 150px;
+}
+.newform {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: bold;
+}
+</style>
+
+
+    	<h2 class="font-weight-bold display-4 ">MA
+		<span style="color: #2277ff">CONFIRMATION</span>
+	</h2>
+    <hr>
+
+    <div class="newform">
+        <p>Votre message a bien été envoyé ! </p>
+        <p>Vous recevrez très prochainement un retour du profil.</p>
+    </div>
+
+    <a href="{{ path('home') }}"><button class="btn btn-primary mt-5">Retour à l'accueil</button></a>
+{% endblock %}
+

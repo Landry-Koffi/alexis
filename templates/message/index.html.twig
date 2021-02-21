@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+
+<style>
+.btn.btn-primary, .btn.btn-danger {
+    height: 40px;
+    width: 120px;
+}
+
+.btn.btn-success, .btn.btn.btn-secondary {
+    height: 60px;
+    width: 150px;
+}
+
+.table {
+    background: #f5f6f6;
+}
+
+</style>
+    	<h2 class="font-weight-bold display-4 ">BOITE
+		<span style="color: #2277ff">DE RÉCEPTION</span>
+	</h2>
+    <hr>
+
+    <table class="table table-hover mt-5">
+        <thead>
+            <tr>
+                <th>Sujet</th>
+                <th>Éxpéditeur</th>
+                <th>État</th>
+                <th class="actionmess">Action</th>
+                <th class="actionmess">Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for message in messages %}
+            <tr>
+                <td><a style="color: black !important" href="{{ path('message_show', {'id': message.fromId.id, 'letter': message.id}) }}">{{ message.subject }}</a></td>
+                <td>{{ message.fromId.firstname }} {{ message.fromId.lastname }}</td>
+                {% if message.isRead == 0 %}
+                <td><img src="{{ asset('img/mess.png') }}" alt="" width="50px"></td>
+                {% else %}
+                <td>ouvert</td>
+                {% endif %}
+                <td class="actionmess">
+                    <a href="{{ path('message_show', {'id': message.id, 'letter': message.fromId.id}) }}"><button class="btn btn-primary">Lire</button></a>
+                </td>
+                <td class="actionmess">{{ include('message/_delete_form.html.twig') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Boite de réception vide</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('message_new') }}"><button class="btn btn-success mt-4">Nouveau message</button></a>
+{% endblock %}

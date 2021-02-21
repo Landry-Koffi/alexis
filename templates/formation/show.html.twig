@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Formation {% endblock %}
+{% block body %}
+
+	<h2 class="font-weight-bold display-4 ">{{ formation.nom }}
+	</h2>
+
+<div class="card mb-5">
+  <h5 class="card-header"><strong>Informations générales</strong></h5>
+  <div class="bodycard">
+    <p class="infog"><span class="showinfo">Date : </span> {{ formation.date|date("d/m/Y") }} </p>
+    <p class="infog"><span class="showinfo">Lieu : </span> {{ formation.lieu }}</p>
+    <p class="infog"><span class="showinfo">Durée : </span> {{ formation.duree }} mois</p>
+    <p class="infog"><span class="showinfo">Coût : </span> {{ (formation.prix)|number_format(2, ',','.') }} € </p>
+    <p class="infog"><span class="showinfo">Nombre de places : </span> {{ formation.places }}</p>
+    <p class="infog"><span class="showinfo">Diplômes : </span> {{ formation.diplomes }}</p>
+  </div>
+</div>
+
+<div class="card mb-5">
+  <h5 class="card-header"><strong>Objectifs de la formation</strong></h5>
+  <div class="bodycard">
+    <p class="infog">{{ formation.objectif }}</p>
+  </div>
+</div>
+
+<div class="card mb-5">
+  <h5 class="card-header"><strong>Prérequis</strong></h5>
+  <div class="bodycard">
+    <p class="infog">{{ formation.prerequis }}</p>
+  </div>
+</div>
+
+<div class="card mb-5">
+  <h5 class="card-header"><strong>Contenu de la formation</strong></h5>
+  <div class="bodycard">
+    <p class="infog">{{ formation.contenu }}</p>
+  </div>
+</div>
+
+<div class="card mb-5">
+  <h5 class="card-header"><strong>Organisme formateur</strong></h5>
+  <div class="bodycard">
+    <p class="infog">{{ formation.organisme }}</p>
+  </div>
+</div>
+
+<div class="inscrire">
+    <a href="{{ path('formation_candidature', {'id': formation.id}) }}"><button class="btn btn-success mr-5">S'INSCRIRE</button></a>
+    <a href="{{ path('formations') }}"><button class="btn btn-secondary">RETOUR</button></a>
+</div>
+
+{% endblock %}
+

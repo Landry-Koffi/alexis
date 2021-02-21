@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Emplois{% endblock %}
+{% block carousel %} {% endblock %}
+{% block body %}
+
+{% for emploi in emplois %}
+
+        <!-- CARDS -->
+
+        <div class="card mb-5" style="max-width: 1200px;">
+            <div class="row">
+                <div class="">
+                <img class="navimg" src="/uploads/{{ emploi.image }}" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="card1">
+                        <a href="{{ path('emploi', { 'id' : emploi.id}) }}"><h5 style="color: black;" class="card-title">{{ emploi.nom }}</h5></a>
+                        <p class="card-text">{{ emploi.debut }}</p>
+                        <p class="card-text"><small class="text-muted">{{ emploi.lieu }}</small></p>
+                    </div>
+
+                    <div class="card1">
+                            <h5 class="card-title">
+                            <a href="{{ path('emploi_like', {'id': emploi.id}) }}" class="btn btn-link js-like">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                            </h5>
+                        <p class="card-text"><small class="text-muted">{{ (emploi.salaire / 100)|number_format(2, ',','.') }} € /h</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /END -->
+{% else %}
+		<h2 class="font-weight-bold display-4 text-center ">Pas
+		<span style="color: #2277ff">de favoris</span>
+	</h2>
+<p class="text-center"><a class="changepassword" href="{{ path('account') }}">Retour au profil</a></p>
+{% endfor %}
+
+{% endblock %}
+

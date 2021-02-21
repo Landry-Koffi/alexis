@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formations favorites{% endblock %}
+{% block carousel %} {% endblock %}
+{% block body %}
+
+
+{% for formation in formations %}
+
+            <!-- CARDS -->
+
+            <div class="card mb-5" style="max-width: 1200px;">
+                <div class="row">
+                    <div class="">
+                    <img class="navimg" src="/uploads/{{ formation.image }}" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <div class="card1">
+                            <a href="{{ path('formation', { 'id' : formation.id}) }}"><h5 style="color: black;" class="card-title">{{ formation.nom }}</h5></a>
+                            <p class="card-text">{{ formation.date|date("d/m/Y") }}</p>
+                            <p class="card-text"><small class="text-muted">En ligne</small></p>
+                        </div>
+
+                        <div class="card1">
+                            <h5 class="card-title">
+                            <a href="{{ path('formation_like', {'id': formation.id}) }}" class="btn btn-link js-like">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                            </h5>
+                            <p class="card-text">{% if formation.eligible == 1 %}ÉLIGIBLE CPF{% endif %}</p>
+                            <p class="card-text"><small class="text-muted">{{ (formation.prix / 100)|number_format(2, ',','.') }} €</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /END -->
+{% else %}
+		<h2 class="font-weight-bold display-4 text-center ">Pas
+		<span style="color: #2277ff">de favoris</span>
+	</h2>
+<p class="text-center"><a class="changepassword" href="{{ path('account') }}">Retour au profil</a></p>
+{% endfor %}
+
+
+
+{% endblock %}
+
+           
+

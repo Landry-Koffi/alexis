@@ -1,0 +1,15 @@
+<style>
+.btn.btn-danger {
+    height: 40px;
+    width: 120px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+</style>
+
+<form method="post" action="{{ path('message_delete', {'id': message.id}) }}" onsubmit="return confirm('Supprimer le message ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+</form>

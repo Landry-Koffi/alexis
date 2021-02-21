@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Formation{% endblock %}
+
+{% block body %}
+
+<style>
+.btn.btn-primary {
+    height: 60px;
+    width: 150px;
+}
+
+.btn.btn-success, .btn.btn.btn-secondary {
+    height: 60px;
+    width: 150px;
+}
+</style>
+
+
+    	<h2 class="font-weight-bold display-4 ">NOUVELLE
+		<span style="color: #2277ff">FORMATION</span>
+	</h2>
+    <hr>
+
+    <div class="newform">
+        {{ include('formation/_form.html.twig') }}
+    </div>
+    
+    <a href="{{ path('formations') }}"><button class="btn btn-primary mt-3">Voir toutes les formations</button></a>
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de commande{% endblock %}
+
+{% block body %}
+
+<style>
+.newform {
+    text-align: center;
+}
+</style>
+    	<h2 class="font-weight-bold display-4 ">CONFIRMATION
+		<span style="color: #2277ff">DE COMMANDE</span>
+	</h2>
+    <hr>
+    <p class="newform">
+        Bonjour <strong>{{ order.user.firstname }} {{ order.user.lastname }}</strong>,<br/><br/>
+        Nous vous remercions pour votre commande n°<strong>{{ order.reference }}</strong>.<br/>
+        Une confirmation vient de vous être envoyée par email à l'adresse <strong>{{ order.user.email }}</strong>.
+        Pour suivre votre commande, rendez-vous dans votre <a href="{{ path('account_order') }}">compte</a>.
+    </p>
+{% endblock %}

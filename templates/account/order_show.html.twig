@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commandes{% endblock %}
+
+{% block body %}
+<style>
+.table {
+    background: #f5f6f6;
+    border: solid 2px #00000029;
+}
+</style>
+    	<h2 class="font-weight-bold display-4 ">MA
+		<span style="color: #2277ff">COMMANDE</span>
+	</h2>
+    <hr>
+    <strong>Statut de la commande : </strong>
+    {% if order.isPaid == 1 %}
+        Paiement accepté
+    {% else %}
+        Paiement refusé
+    {% endif %}
+    <br/>
+    <strong>Commande passée le :</strong> {{ order.createdAt|date('d/m/Y') }}<br/>
+    <strong>Référence de ma commande :</strong> <small>{{ order.reference }}</small><br/>
+    <hr>
+    <strong>Détails:</strong>
+
+    <table class="table mt-4">
+        <thead>
+        <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix unitaire</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in order.oderDetails %}
+        <tr>
+            <td>{{ product.product }}</td>
+            <td>x{{ product.quantity }}</td>
+            <td>{{ product.price }} €</td>
+            <td>{{ product.total }} €</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-right">
+        <strong>Total :</strong> {{ (order.getTotal / 100)|number_format(2, ',', '.') }} €<br/>
+    </div>
+
+    <a class="changepassword" href="{{ path('account_order') }}">Retour</a>
+
+{% endblock %}

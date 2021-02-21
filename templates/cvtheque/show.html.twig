@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Cvtheque
+{% endblock %}
+{% block body %}
+
+<style>
+.cv {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>
+
+
+	<h2 class="font-weight-bold display-4 ">{{ cvtheque.prenom }}
+		<span style="color: #2277ff">{{ cvtheque.nom }}</span>
+	</h2>
+
+	<div class="card mb-5" style="max-width: 1200px;">
+			<h5 class="card-header">
+			<strong>Profil</strong>
+		</h5>
+		<div class="row">
+			<div class="">
+				<img class="navimg" src="/uploads/{{ cvtheque.image }}" alt="...">
+			</div>
+			<div class="card-body">
+				<div class="card1">
+					<p class="card-text" style="text-transform: uppercase;">{{ cvtheque.category }}</p>
+					<p class="card-text">
+						<small class="text-muted">{{ cvtheque.lieu }}</small>
+					</p>
+				</div>
+
+				<div class="card1">
+					<h5 class="card-title">
+						<a href="{{ path('cvtheque_like', {'id': cvtheque.id}) }}" class="btn btn-link js-like">
+							{% if app.user and cvtheque.isLikeByUser(app.user) %}
+								<i class="fas fa-heart"></i>
+							{% else %}
+								<i class="far fa-heart"></i>
+							{% endif %}
+						</a>
+					</h5>
+					<p class="card-text" style="color: #2277ff;">
+						{% if cvtheque.disponible == 1 %}DISPONIBLE
+						{% endif %}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card mb-5">
+		<h5 class="card-header">
+			<strong>Informations générales</strong>
+		</h5>
+		<div class="bodycard">
+			<p class="infog">
+				<span class="showinfo">Expériences :
+				</span>
+				{{ cvtheque.experience }}
+				ANS
+			</p>
+			<p class="infog">
+				<span class="showinfo">Recherche :
+				</span>
+				{{ cvtheque.contrat }}</p>
+		</div>
+	</div>
+
+	<div class="card mb-5">
+		<h5 class="card-header">
+			<strong>Ressources</strong>
+		</h5>
+		<div class="bodycard">
+			<p class="cv">
+				<embed src="/uploads/{{ cvtheque.cv }}" width="800" height="500" type="application/pdf"/>
+			</p>
+		</div>
+	</div>
+
+
+	<div class="inscrire">
+		<a href="{{ path('cvtheque_contact', {'id': cvtheque.id}) }}">
+			<button class="btn btn-success mr-5">CONTACTER</button>
+		</a>
+		<a href="{{ path('cvtheques') }}">
+			<button class="btn btn-secondary">RETOUR</button>
+		</a>
+	</div>
+
+
+{% endblock %}

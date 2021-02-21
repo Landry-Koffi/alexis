@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement de ma commande{% endblock %}
+
+{% block body %}
+
+<style>
+.fa-shopping-cart, .fa-credit-card {
+  font-size: 20px;
+}
+</style>
+
+    	<h2 class="font-weight-bold display-4 ">MON
+		<span style="color: #2277ff">PAIEMENT</span>
+	</h2>
+    <hr>
+    <div class="newform">
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <img src="{{ asset('img/jobissim.png') }}" alt="" width="250px">
+        </div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <b>Ma commande</b><br/>
+            </div>
+            <div class="order-summary">
+                {% set total = null %}
+                {% for key,product in cart %}
+                    <div class="row {% if key > 0 %}mt-2{% endif %}">
+                        <div class="col-8 my-auto">
+                            <small>
+                                {{ product.product.subtitle }}
+                                <br/>
+                                x {{ product.quantity }}
+                            </small>
+                        </div>
+                        <div class="col-2 my-auto">
+                            {{ (product.product.total * product.quantity ) }} €
+                        </div>
+                    </div>
+                    {% set total = total + (product.product.total * product.quantity) %}
+                {% endfor %}
+            </div>
+
+            <hr>
+            <strong>Total : </strong> {{ total }} €<br/>
+            <hr>
+            <a class="btn btn-success btn-block mt-3" id="checkout-button"><i class="far fa-credit-card"></i> Payer {{ total }} €</a>
+        </div></div>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <script type="text/javascript">
+
+    var stripe = Stripe("pk_test_51IGkdAH6KGzD4QaIN3qYyzLBD3zJw2KiW293cLt5YZKVD9irssMGVOf5LDKmm7l8z7XplgawY2D7TGdvFoCBwmUK00xyxHYXAl");
+
+    var checkoutButton = document.getElementById("checkout-button");
+
+    checkoutButton.addEventListener("click", function () {
+
+      fetch("/commande/create-session/{{ reference }}", {
+        method: "POST",
+      })
+
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          if (session.error == 'order') {
+            window.location.replace('{{ path('paiement') }}')
+          } else {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+          }
+        })
+        .then(function (result) {
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    });
+
+  </script>
+
+{% endblock %}

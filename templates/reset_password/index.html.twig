@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block body %}
+
+        	<h2 class="font-weight-bold display-4 ">RÉINITIALISER
+		<span style="color: #2277ff">LE MOT DE PASSE</span>
+	</h2>
+<hr>
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-info mt-2">{{ message }}</div>
+        {% endfor %}
+
+        <form class="newform" method="post">
+            <label for="inputEmail">Votre email</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Votre adresse email" required autofocus>
+
+            <button class="btn btn-info mt-3" type="submit">
+                Valider
+            </button>
+            <hr>
+        </form>
+{% endblock %}

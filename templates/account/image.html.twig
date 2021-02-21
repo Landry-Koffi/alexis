@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avatar
+{% endblock %}
+
+{% block body %}
+
+<style>
+.passreset {
+	background: #f5f6f6 !important;
+    padding: 3%;
+	margin-bottom: 5%;
+	margin-top: 5%;
+}
+
+.btn.btn-primary {
+	width: 130px;
+	height: 40px;
+}
+</style>
+		<h2 class="font-weight-bold display-4 ">CHANGER
+		<span style="color: #2277ff">L'AVATAR</span>
+	</h2>
+	<hr>
+
+	<div class="passreset">
+		{{ form(form) }}
+	</div>
+
+	<a class="changepassword" href="{{ path('account') }}">Retourner sur mon compte</a>
+	<br>
+
+	{% endblock %}

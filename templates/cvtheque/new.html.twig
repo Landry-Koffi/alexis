@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau CV{% endblock %}
+
+{% block body %}
+
+<style>
+.btn.btn-primary {
+    height: 60px;
+    width: 150px;
+}
+
+.btn.btn-success, .btn.btn.btn-secondary {
+    height: 60px;
+    width: 150px;
+}
+</style>
+
+
+    	<h2 class="font-weight-bold display-4 ">NOUVEAU
+		<span style="color: #2277ff">CV</span>
+	</h2>
+    <hr>
+
+    <div class="newform">
+        {{ include('cvtheque/_form.html.twig') }}
+    </div>
+    
+    <a href="{{ path('cvtheques') }}"><button class="btn btn-primary mt-3">Voir toute les cv</button></a>
+{% endblock %}
+

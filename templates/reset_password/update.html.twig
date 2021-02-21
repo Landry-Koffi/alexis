@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block body %}
+
+        	<h2 class="font-weight-bold display-4 ">Réinitialiser
+		<span style="color: #2277ff">le Mot de Passe</span>
+	</h2>
+
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+        <div class="newform">
+            {{ form(form) }}
+        </div>
+{% endblock %}
